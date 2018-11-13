@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html> 
+<head> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2" />
+    <title>Resultados Futbol</title>
+    <meta charset="utf-8">
+	<style>
+	table {
+		font-family: arial, sans-serif;
+		border-collapse: collapse;		
+	}
+
+	td, th {
+		border: 1px solid #dddddd;
+		padding: 1px;
+	}
+
+	tr:nth-child(even) {
+		background-color: #dddddd;
+	}
+	div [data-role=header] {
+		background-color: #292929;
+		color:white;		
+		font-size: 20px;
+		height:30px;
+		text-align:center;		
+		padding-top:5px;
+		padding-bottom:5px;
+    }
+	div [data-role=footer] {
+		background-color: #292929;
+		color:white;		
+		font-size: 14px;
+		padding-top:5px;
+		padding-bottom:5px;
+    }
+	
+	.boton_perso{
+		text-decoration: none;
+		padding: 5px;
+		font-weight: bold;
+		font-size: 14px;
+		color: grey;
+		background-color: #292929;
+		border-radius: 6px;
+		border: 2px solid grey;
+		cursor:pointer;
+		align:center;
+	  }
+	  .boton_perso:hover{
+		color: white;
+		background-color: grey;
+	  }
+	</style>
+	<script src="js/jquery-1.8.3.min.js"></script>
+	
+	<script language="javascript">
+			var aTeams = new Array();
+			aTeams[88] = '1547.jpg'; aTeams[92] = '2120.jpg'; aTeams[250] = '2654.jpg';	aTeams[278] = '957.jpg'; aTeams[82] = '1217.jpg';
+			aTeams[95] = '2647.jpg'; aTeams[78] = '369.jpg'; aTeams[298] = '1236.jpg'; 	aTeams[745] = '1535.jpg'; aTeams[263] = '137.jpg';	aTeams[299] = '1339.jpg';
+			aTeams[81] = '429.jpg'; aTeams[90] = '486.jpg'; aTeams[559] = '1102.jpg';	aTeams[80] = '998.jpg';	aTeams[87] = '2080.jpg'; aTeams[94] = '2716.jpg';	aTeams[558] = '712.jpg';
+			aTeams[86] = '2107.jpg';	aTeams[77] = '347.jpg';
+			
+			var aJornadas = new Array();
+			aJornadas[12] = {jornada: 12, fechaDesde:'2018-11-09', fechaHasta:'2018-11-11'};
+			aJornadas[13] = {jornada: 13, fechaDesde:'2018-11-23', fechaHasta:'2018-11-26'};
+			aJornadas[14] = {jornada: 14, fechaDesde:'2018-11-30', fechaHasta:'2018-12-03'};
+			aJornadas[15] = {jornada: 15, fechaDesde:'2018-12-07', fechaHasta:'2018-12-10'};
+			aJornadas[16] = {jornada: 16, fechaDesde:'2018-12-14', fechaHasta:'2018-12-17'};
+			aJornadas[17] = {jornada: 17, fechaDesde:'2018-12-20', fechaHasta:'2018-12-23'};
+			aJornadas[18] = {jornada: 18, fechaDesde:'2019-01-04', fechaHasta:'2019-01-07'};
+			aJornadas[19] = {jornada: 19, fechaDesde:'2019-01-11', fechaHasta:'2019-01-14'};
+			aJornadas[20] = {jornada: 20, fechaDesde:'2019-01-18', fechaHasta:'2019-01-21'};
+			aJornadas[21] = {jornada: 21, fechaDesde:'2019-01-25', fechaHasta:'2019-01-28'};
+			aJornadas[22] = {jornada: 22, fechaDesde:'2019-02-01', fechaHasta:'2019-02-04'};
+			aJornadas[23] = {jornada: 23, fechaDesde:'2019-02-08', fechaHasta:'2019-02-11'};
+			aJornadas[24] = {jornada: 24, fechaDesde:'2019-02-15', fechaHasta:'2019-02-18'};
+			aJornadas[25] = {jornada: 25, fechaDesde:'2019-02-22', fechaHasta:'2019-02-25'};
+			aJornadas[26] = {jornada: 26, fechaDesde:'2019-03-01', fechaHasta:'2019-03-04'};
+			aJornadas[27] = {jornada: 27, fechaDesde:'2019-03-08', fechaHasta:'2019-03-11'};
+			aJornadas[28] = {jornada: 28, fechaDesde:'2019-03-15', fechaHasta:'2019-03-18'};
+			aJornadas[29] = {jornada: 29, fechaDesde:'2019-03-29', fechaHasta:'2019-04-01'};
+			aJornadas[30] = {jornada: 30, fechaDesde:'2019-04-02', fechaHasta:'2019-04-04'};
+			aJornadas[31] = {jornada: 31, fechaDesde:'2019-04-05', fechaHasta:'2019-04-08'};
+			aJornadas[32] = {jornada: 32, fechaDesde:'2019-04-12', fechaHasta:'2019-04-15'};
+			aJornadas[33] = {jornada: 33, fechaDesde:'2019-04-19', fechaHasta:'2019-04-22'};
+			aJornadas[34] = {jornada: 34, fechaDesde:'2019-04-23', fechaHasta:'2019-04-25'};
+			aJornadas[35] = {jornada: 35, fechaDesde:'2019-04-26', fechaHasta:'2019-04-29'};
+			aJornadas[36] = {jornada: 36, fechaDesde:'2019-05-03', fechaHasta:'2019-05-06'};
+			aJornadas[37] = {jornada: 37, fechaDesde:'2019-05-10', fechaHasta:'2019-05-13'};
+			aJornadas[38] = {jornada: 38, fechaDesde:'2019-05-17', fechaHasta:'2019-05-20'};
+			
+			//Cargamos la fecha actual
+			var jornadaInicial = 12;
+			var strFechaDesde = '';
+			var strFechaHasta = '';
+			
+			var fechaActual = new Date();
+			var day = fechaActual.getDate();
+			var month = fechaActual.getMonth()+1;
+			var year = fechaActual.getFullYear();
+			var strFechaActual = year+''+month+''+day;
+			var fechaActInt = parseInt(strFechaActual);
+			
+			for (var i = 12; i < 38; i++) {
+				var jorAux = aJornadas[i];
+				
+				var fechAuxHasta = jorAux.fechaHasta;
+				while (fechAuxHasta.indexOf('-') != -1) {
+					fechAuxHasta = fechAuxHasta.replace('-','');
+				}
+				
+				var fechHasta = parseInt(fechAuxHasta);
+				if (fechaActInt <= fechHasta) {
+					jornadaInicial = jorAux.jornada;
+					break;
+				}
+			}
+			strFechaDesde = aJornadas[jornadaInicial].fechaDesde;
+			strFechaHasta = aJornadas[jornadaInicial].fechaHasta;
+			//Fin de la carga de la fecha actual	
+			
+						
+			function jornadaAnt() {
+				if (jornadaInicial > 12) {
+					jornadaInicial = jornadaInicial - 1;
+					jornada(jornadaInicial);
+				}
+			}
+			function jornadaSig() {
+				if (jornadaInicial < 38) {
+					jornadaInicial = jornadaInicial + 1;
+					jornada(jornadaInicial);
+				}
+			}
+			function jornada(jor) {
+				jornadaInicial = jor;
+				strFechaDesde = aJornadas[jornadaInicial].fechaDesde;
+				strFechaHasta = aJornadas[jornadaInicial].fechaHasta;
+				jQuery.ajax({
+					  headers: { 'X-Auth-Token': 'f62ba37a507c40598c31f642af27ddd2' },
+					  url: 'http://api.football-data.org/v2/competitions/PD/matches?dateFrom='+strFechaDesde+'&dateTo='+strFechaHasta,
+					  dataType: 'json',
+					  type: 'GET',
+					}).done(function(objeto) {
+						cargarResultado(objeto);				
+				});
+			}
+			
+			function cargarResultado(objeto) {
+				var htmlGenerado = "";
+				htmlGenerado+='<table style="width:100%"><colgroup><col width="15%"/><col width="35%"/><col width="10%"/><col width="40%"/></colgroup>';
+				for (var i=0; i < objeto.matches.length; i++) {
+					var partido = objeto.matches[i];
+					var fecha = partido.utcDate;
+					var aFecha = fecha.split('T');
+					var hora = aFecha[1].replace(':00Z','');
+					var aHora = hora.split(':');
+					hora = parseInt(aHora[0])+1+':'+aHora[1];
+					var status = partido.status;
+					htmlGenerado+='<tr><td>'+aFecha[0]+'</td>';
+					htmlGenerado+='<td align="right">'+partido.homeTeam.name+'&nbsp;<img src="https://thumb.resfu.com/img_data/escudos/small/'+aTeams[partido.homeTeam.id]+'?size=37x&amp;5" width="18">&nbsp;</td>';
+					if (status == 'FINISHED') {
+						htmlGenerado+='<td align="center">'+partido.score.fullTime.homeTeam+'-'+partido.score.fullTime.awayTeam+'</td>';
+					} else {
+						if (hora == '1:00') {
+							hora = '--:--';
+						}
+						htmlGenerado+='<td align="center">'+hora+'</td>';
+					}
+					htmlGenerado+='<td align="left">&nbsp;<img src="https://thumb.resfu.com/img_data/escudos/small/'+aTeams[partido.awayTeam.id]+'?size=37x&amp;5" width="18">&nbsp;'+partido.awayTeam.name+'</td></tr>';
+				}
+				htmlGenerado+='</table>';
+				document.getElementById('titulo').innerHTML='&nbsp;Resultados&nbsp;(Jornada:'+jornadaInicial+')';
+				document.getElementById('resultado').innerHTML=htmlGenerado;
+			}
+			
+			function mostrarClasificacion() {
+				document.getElementById('resultados').style.display = 'none';
+				document.getElementById('clasificacion').style.display = 'block';				
+			}
+			function mostrarResultados() {
+				document.getElementById('clasificacion').style.display = 'none';				
+				document.getElementById('resultados').style.display = 'block';
+			}
+			
+			function cargarClasificacion(objeto) {
+				var htmlGenerado = "";
+				htmlGenerado+='<table style="width:100%">';
+				htmlGenerado+='<tr><th>Pos</th><th>Equipo</th><th>PJ</th><th>PT</th><th>PG</th><th>PE</th><th>PP</th></tr>';
+				for (var i=0; i < objeto.standings[0].table.length; i++) {
+					var posicion = objeto.standings[0].table[i];
+					htmlGenerado+='<tr>';
+					htmlGenerado+='<td align="center">'+posicion.position+'</td><td><img src="https://thumb.resfu.com/img_data/escudos/small/'+aTeams[posicion.team.id]+'?size=37x&amp;5" width="18">&nbsp;'+posicion.team.name+'</td><td align="center">'+posicion.playedGames+'</td><td align="center">'+posicion.points+'</td><td align="center">'+posicion.won+'</td><td align="center">'+posicion.draw+'</td><td  align="center">'+posicion.lost+'</td>';
+					htmlGenerado+='</tr>';
+				}
+				htmlGenerado+='</table>';
+				document.getElementById('teams').innerHTML=htmlGenerado;//JSON.stringify(standings);
+			}
+			
+			jQuery.ajax({
+			  headers: { 'X-Auth-Token': 'f62ba37a507c40598c31f642af27ddd2' },
+			  url: 'http://api.football-data.org/v2/competitions/PD/matches?dateFrom='+strFechaDesde+'&dateTo='+strFechaHasta,
+			  dataType: 'json',
+			  type: 'GET',
+			}).done(function(objeto) {
+				cargarResultado(objeto);				
+			});
+			
+			jQuery.ajax({
+			  headers: { 'X-Auth-Token': 'f62ba37a507c40598c31f642af27ddd2' },
+			  url: 'http://api.football-data.org/v2/competitions/PD/standings',
+			  dataType: 'json',
+			  type: 'GET',
+			}).done(function(objeto) {
+				cargarClasificacion(objeto);
+			});
+			
+	</script>
+</head> 
+<body> 
+	<div id="resultados" data-role="page"> 
+		<div data-role="header" >
+			<input class="boton_perso" type="button" onclick="jornadaAnt()" value="Jornada Ant." style="float:left"/><input class="boton_perso" style="float:right" type="button" onclick="jornadaSig()" value="Jornada Sig."/>
+			<div id="titulo" style="align:center;"></div>
+		</div> 
+		<div id="resultado" data-role="content">
+				
+		</div> 
+		<div data-role="footer">
+			<input  class="boton_perso" style="margin-left:45%" type="button" onclick="mostrarClasificacion()" value="Clasificaci&#243;n"/>
+		</div> 
+	</div>
+	<div id="clasificacion" style="display:none" data-role="page"> 
+		<div data-role="header">		
+			Clasificaci&#243;n
+		</div> 
+		<div id="teams" data-role="content">
+			
+		</div> 
+		<div data-role="footer">
+			<input  class="boton_perso" style="margin-left:45%" type="button" onclick="mostrarResultados()" value="Resultados"/>
+		</div> 
+	</div>
+</body>
+</html>
