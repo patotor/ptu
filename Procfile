@@ -1,1 +1,0 @@
-web: java -jar paultxobot-1.0.jar
