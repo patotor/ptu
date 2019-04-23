@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html> 
+<head> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2" />
+    <title>Resultados Futbol</title>
+    <meta charset="utf-8">
+	<style>
+		#tablaResultado {
+			font-family: Arial, Helvetica, sans-serif;
+			border-collapse: separate;
+			font-size: 13px;
+			border-spacing: 2px 5px;
+		}
+		#tablaClasificacion {
+			font-family: Arial, Helvetica, sans-serif;
+			border-collapse: collapse;
+			font-size: 13px;			
+		}
+		th {
+			border: 1px solid #dddddd;								
+		}
+		td {
+			border: 1px solid #dddddd;					
+			padding-bottom: 5px;
+			padding-top: 5px;
+			background-color: white;
+		}
+
+		div [data-role=header] {
+			background-color:  #263238;
+			color: white;
+			font-weight: bold;			
+			font-size: 18px;
+			height:40px;
+			border-radius: 2px;
+			text-align:center;		
+			padding-top:1px;
+			padding-bottom:1px;
+		}
+		div [data-role=footer] {
+			background-color: #17202a;
+			color: white;		
+			font-size: 16px;
+			padding-top:1px;
+			padding-bottom:1px;
+			height:40px;
+			border-radius: 2px;
+		}
+
+		.boton_perso{
+			text-decoration: none;
+			padding: 5px;
+			font-weight: bold;
+			font-size: 14px;
+			color: white;
+			background-color: #546e7a;
+			border-radius: 8px;
+			border: 1px solid grey;
+			cursor:pointer;
+			align:center;	
+			margin-top: 5px;
+			margin-left: 3px;
+			margin-right: 3px;
+		}		
+	</style>	
+	<script language="javascript">
+			var aTeams = new Array();
+			aTeams[88] = '1547.jpg'; aTeams[92] = '2120.jpg'; aTeams[250] = '2654.jpg';	aTeams[278] = '957.jpg'; aTeams[82] = '1217.jpg';
+			aTeams[95] = '2647.jpg'; aTeams[78] = '369.jpg'; aTeams[298] = '1236.jpg'; 	aTeams[745] = '1535.jpg'; aTeams[263] = '137.jpg';	aTeams[299] = '1339.jpg';
+			aTeams[81] = '429.jpg'; aTeams[90] = '486.jpg'; aTeams[559] = '1102.jpg';	aTeams[80] = '998.jpg';	aTeams[87] = '2080.jpg'; aTeams[94] = '2716.jpg';	aTeams[558] = '712.jpg';
+			aTeams[86] = '2107.jpg';	aTeams[77] = '347.jpg';
+			var aTeamsName = new Array();
+			aTeamsName[77] = 'Athletik';
+			aTeamsName[78] = 'Atlético';
+			aTeamsName[80] = 'Espanyol';
+			aTeamsName[86] = 'Real Madrid';
+			aTeamsName[87] = 'Rayo Vallecano';
+			aTeamsName[90] = 'Real Betis';
+			aTeamsName[92] = 'R. Sociedad';
+			aTeamsName[250] = 'Valladolid';
+			aTeamsName[263] = 'Alaves';
+			aTeamsName[558] = 'Celta';
+			var aJornadas = new Array();
+			aJornadas[12] = {jornada: 12, fechaDesde:'2018-11-09', fechaHasta:'2018-11-11'};
+			aJornadas[13] = {jornada: 13, fechaDesde:'2018-11-23', fechaHasta:'2018-11-26'};
+			aJornadas[14] = {jornada: 14, fechaDesde:'2018-11-30', fechaHasta:'2018-12-03'};
+			aJornadas[15] = {jornada: 15, fechaDesde:'2018-12-07', fechaHasta:'2018-12-10'};
+			aJornadas[16] = {jornada: 16, fechaDesde:'2018-12-14', fechaHasta:'2018-12-17'};
+			aJornadas[17] = {jornada: 17, fechaDesde:'2018-12-20', fechaHasta:'2018-12-23'};
+			aJornadas[18] = {jornada: 18, fechaDesde:'2019-01-04', fechaHasta:'2019-01-07'};
+			aJornadas[19] = {jornada: 19, fechaDesde:'2019-01-11', fechaHasta:'2019-01-14'};
+			aJornadas[20] = {jornada: 20, fechaDesde:'2019-01-18', fechaHasta:'2019-01-21'};
+			aJornadas[21] = {jornada: 21, fechaDesde:'2019-01-25', fechaHasta:'2019-01-28'};
+			aJornadas[22] = {jornada: 22, fechaDesde:'2019-02-01', fechaHasta:'2019-02-04'};
+			aJornadas[23] = {jornada: 23, fechaDesde:'2019-02-08', fechaHasta:'2019-02-11'};
+			aJornadas[24] = {jornada: 24, fechaDesde:'2019-02-15', fechaHasta:'2019-02-18'};
+			aJornadas[25] = {jornada: 25, fechaDesde:'2019-02-22', fechaHasta:'2019-02-25'};
+			aJornadas[26] = {jornada: 26, fechaDesde:'2019-03-01', fechaHasta:'2019-03-04'};
+			aJornadas[27] = {jornada: 27, fechaDesde:'2019-03-08', fechaHasta:'2019-03-11'};
+			aJornadas[28] = {jornada: 28, fechaDesde:'2019-03-15', fechaHasta:'2019-03-18'};
+			aJornadas[29] = {jornada: 29, fechaDesde:'2019-03-29', fechaHasta:'2019-04-01'};
+			aJornadas[30] = {jornada: 30, fechaDesde:'2019-04-02', fechaHasta:'2019-04-04'};
+			aJornadas[31] = {jornada: 31, fechaDesde:'2019-04-05', fechaHasta:'2019-04-08'};
+			aJornadas[32] = {jornada: 32, fechaDesde:'2019-04-12', fechaHasta:'2019-04-15'};
+			aJornadas[33] = {jornada: 33, fechaDesde:'2019-04-19', fechaHasta:'2019-04-22'};
+			aJornadas[34] = {jornada: 34, fechaDesde:'2019-04-23', fechaHasta:'2019-04-25'};
+			aJornadas[35] = {jornada: 35, fechaDesde:'2019-04-26', fechaHasta:'2019-04-29'};
+			aJornadas[36] = {jornada: 36, fechaDesde:'2019-05-03', fechaHasta:'2019-05-06'};
+			aJornadas[37] = {jornada: 37, fechaDesde:'2019-05-10', fechaHasta:'2019-05-13'};
+			aJornadas[38] = {jornada: 38, fechaDesde:'2019-05-17', fechaHasta:'2019-05-20'};
+			
+			//Cargamos la fecha actual
+			var jornadaInicial = 12;
+			var fechaActual = new Date();
+			var strFechaActual = fechaActual.getFullYear();
+			if ((fechaActual.getMonth() + 1) < 10) {
+				strFechaActual = strFechaActual+'0';
+			}
+			strFechaActual = strFechaActual+''+(fechaActual.getMonth()+1);
+			if (fechaActual.getDate() < 10) {
+				strFechaActual = strFechaActual+'0';
+			}
+			strFechaActual = strFechaActual+''+fechaActual.getDate();
+			
+			var fechaActInt = parseInt(strFechaActual);
+			
+			for (var i = 12; i < 39; i++) {
+				var jorAux = aJornadas[i];
+				var fechAuxHasta = jorAux.fechaHasta;
+				while (fechAuxHasta.indexOf('-') != -1) {
+					fechAuxHasta = fechAuxHasta.replace('-','');
+				}				
+				var fechHasta = parseInt(fechAuxHasta);
+				if (fechaActInt <= fechHasta) {
+					jornadaInicial = jorAux.jornada;
+					break;
+				}
+			}
+			var strFechaDesde = aJornadas[jornadaInicial].fechaDesde;
+			var strFechaHasta = aJornadas[jornadaInicial].fechaHasta;
+			//Fin de la carga de la fecha actual	
+									
+			function jornadaAnt() {
+				if (jornadaInicial > 12) {
+					jornadaInicial = jornadaInicial - 1;
+					jornada(jornadaInicial);
+				}
+			}
+			function jornadaSig() {
+				if (jornadaInicial < 38) {
+					jornadaInicial = jornadaInicial + 1;
+					jornada(jornadaInicial);
+				}
+			}
+			function bloquearBotones() {
+				document.getElementById("botAnt").disabled = true;
+				document.getElementById("botSig").disabled = true;
+			}
+			function habilitarBotones() {
+				document.getElementById("botAnt").disabled = false;
+				document.getElementById("botSig").disabled = false;
+			}
+			function jornada(jor) {
+				bloquearBotones();
+				strFechaDesde = aJornadas[jor].fechaDesde;
+				strFechaHasta = aJornadas[jor].fechaHasta;
+				var fecha =(new Date()).getTime();
+				xhttp.open("GET", 'http://api.football-data.org/v2/competitions/PD/matches?dateFrom='+strFechaDesde+'&dateTo='+strFechaHasta+'&fecha='+fecha, true);
+				xhttp.setRequestHeader("X-Auth-Token", "f62ba37a507c40598c31f642af27ddd2");
+				xhttp.send();
+			}
+			
+			function cargarResultado(objeto) {
+				var htmlGenerado = "";
+				htmlGenerado+='<table id="tablaResultado" style="width:100%"><colgroup><col width="44%"/><col width="12%"/><col width="44%"/></colgroup>';
+				for (var i=0; i < objeto.matches.length; i++) {
+					var partido = objeto.matches[i];
+					var aFecha = partido.utcDate.split('T');
+					var hora = aFecha[1].replace(':00Z','');
+					var aHora = hora.split(':');
+					hora = parseInt(aHora[0])+2+':'+aHora[1];
+					var status = partido.status;
+					var aFechaPartida = aFecha[0].split('-');
+					var homeTeamName = partido.homeTeam.name;
+					if (aTeamsName[partido.homeTeam.id] != null) {
+						homeTeamName = aTeamsName[partido.homeTeam.id];
+					}					
+					var awayTeamName = partido.awayTeam.name;
+					if (aTeamsName[partido.awayTeam.id] != null) {
+						awayTeamName = aTeamsName[partido.awayTeam.id];
+					}
+					var	diaMes = aFechaPartida[2]+'/'+aFechaPartida[1];
+					htmlGenerado+='<tr>';
+					htmlGenerado+='<td align="right">'+homeTeamName+'&nbsp;<img src="https://thumb.resfu.com/img_data/escudos/small/'+aTeams[partido.homeTeam.id]+'" width="20">&nbsp;</td>';
+					if (status == 'FINISHED') {
+						htmlGenerado+='<td align="center">'+partido.score.fullTime.homeTeam+'-'+partido.score.fullTime.awayTeam+'</td>';
+					} else {
+						if (hora == '1:00') {
+							hora = '--:--';
+						}
+						htmlGenerado+='<td align="center"><table style="border-collapse: collapse;"><tr><td style="border:0; padding:0">'+diaMes+'</td></tr><tr><td style="border:0; padding:0">'+hora+'</td></tr></table></td>';
+					}
+					htmlGenerado+='<td align="left">&nbsp;<img src="https://thumb.resfu.com/img_data/escudos/small/'+aTeams[partido.awayTeam.id]+'" width="20">&nbsp;'+awayTeamName+'</td></tr>';
+				}
+				htmlGenerado+='</table>';
+				document.getElementById('titulo').innerHTML='(Jornada:'+jornadaInicial+')';
+				document.getElementById('resultado').innerHTML=htmlGenerado;
+				mostrarResultados();
+			}
+			
+			function mostrarClasificacion() {
+				document.getElementById('resultados').style.display = 'none';
+				document.getElementById('clasificacion').style.display = 'block';				
+			}
+			function mostrarResultados() {
+				document.getElementById('clasificacion').style.display = 'none';				
+				document.getElementById('resultados').style.display = 'block';
+			}
+			
+			function cargarClasificacion(objeto) {
+				var htmlGenerado = "";
+				htmlGenerado+='<table id="tablaClasificacion" style="width:100%">';
+				htmlGenerado+='<tr><th>Pos</th><th>Equipo</th><th>PJ</th><th>PT</th><th>PG</th><th>PE</th><th>PP</th></tr>';
+				for (var i=0; i < objeto.standings[0].table.length; i++) {
+					var posicion = objeto.standings[0].table[i];
+					var nameTeam = posicion.team.name;
+					if (aTeamsName[posicion.team.id] != null) {
+						nameTeam = aTeamsName[posicion.team.id];
+					}
+					htmlGenerado+='<tr>';
+					var posInt = parseInt(posicion.position);
+					var color = "white";
+					if (posInt < 5) {
+						color = "#12ab49";
+					} else if (posInt == 5 || posInt == 6) {
+						color = "#1251ab";
+					} else if (posInt > 17) {
+						color = "#c20213";
+					}
+					htmlGenerado+='<td align="center" style="background-color:'+color+'">'+posicion.position+'</td><td><img src="https://thumb.resfu.com/img_data/escudos/small/'+aTeams[posicion.team.id]+'" width="20">&nbsp;'+nameTeam+'</td><td align="center">'+posicion.playedGames+'</td><td align="center">'+posicion.points+'</td><td align="center">'+posicion.won+'</td><td align="center">'+posicion.draw+'</td><td  align="center">'+posicion.lost+'</td>';
+					htmlGenerado+='</tr>';
+				}
+				htmlGenerado+='</table>';
+				document.getElementById('teams').innerHTML=htmlGenerado;
+			}
+			
+			var xhttp=new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+			  if (this.readyState == 4 && this.status == 200) {
+				var objeto = JSON.parse(this.responseText);
+				cargarResultado(objeto);
+				habilitarBotones();
+			  }
+			};
+			xhttp.open("GET", 'http://api.football-data.org/v2/competitions/PD/matches?dateFrom='+strFechaDesde+'&dateTo='+strFechaHasta, true);
+			xhttp.setRequestHeader("X-Auth-Token", "f62ba37a507c40598c31f642af27ddd2");
+			xhttp.send();
+			
+			var xhttp2=new XMLHttpRequest();
+			xhttp2.onreadystatechange = function() {
+			  if (this.readyState == 4 && this.status == 200) {
+				var objeto = JSON.parse(this.responseText);
+				cargarClasificacion(objeto);
+			  }
+			};
+			xhttp2.open("GET", 'http://api.football-data.org/v2/competitions/PD/standings', true);
+			xhttp2.setRequestHeader("X-Auth-Token", "f62ba37a507c40598c31f642af27ddd2");
+			xhttp2.send();
+			
+	</script>
+</head> 
+<body style="background-color:#dfdfdf;"> 
+	<div id="resultados" style="display:none" data-role="page"> 
+		<div data-role="header" >
+			<input id="botAnt" class="boton_perso" type="button" onclick="jornadaAnt()" value="Jornada Ant." style="float:left"/><input id="botSig" class="boton_perso" style="float:right" type="button" onclick="jornadaSig()" value="Jornada Sig."/>
+			<div id="titulo" style="align:center; margin-top: 10px"></div>
+		</div> 
+		<div id="resultado" data-role="content">
+				
+		</div> 
+		<div data-role="footer">
+			<input  class="boton_perso" style="margin-left:35%" type="button" onclick="mostrarClasificacion()" value="Clasificaci&#243;n"/>
+		</div> 
+	</div>
+	<div id="clasificacion" style="display:none" data-role="page"> 
+		<div data-role="header">		
+			<div style="align:center; margin-top: 10px">Clasificaci&#243;n</div>
+		</div> 
+		<div id="teams" data-role="content">			
+		</div> 
+		<div data-role="footer">
+			<input  class="boton_perso" style="margin-left:35%" type="button" onclick="mostrarResultados()" value="Resultados"/>
+		</div> 
+	</div>		
+</body>
+</html>
