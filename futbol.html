@@ -165,7 +165,7 @@
 				strFechaDesde = aJornadas[jor].fechaDesde;
 				strFechaHasta = aJornadas[jor].fechaHasta;
 				var fecha =(new Date()).getTime();
-				xhttp.open("GET", 'http://api.football-data.org/v2/competitions/PD/matches?dateFrom='+strFechaDesde+'&dateTo='+strFechaHasta+'&fecha='+fecha, true);
+				xhttp.open("GET", 'https://api.football-data.org/v2/competitions/PD/matches?dateFrom='+strFechaDesde+'&dateTo='+strFechaHasta+'&fecha='+fecha, true);
 				xhttp.setRequestHeader("X-Auth-Token", "f62ba37a507c40598c31f642af27ddd2");
 				xhttp.send();
 			}
@@ -252,7 +252,7 @@
 				habilitarBotones();
 			  }
 			};
-			xhttp.open("GET", 'http://api.football-data.org/v2/competitions/PD/matches?dateFrom='+strFechaDesde+'&dateTo='+strFechaHasta, true);
+			xhttp.open("GET", 'https://api.football-data.org/v2/competitions/PD/matches?dateFrom='+strFechaDesde+'&dateTo='+strFechaHasta, true);
 			xhttp.setRequestHeader("X-Auth-Token", "f62ba37a507c40598c31f642af27ddd2");
 			xhttp.send();
 			
@@ -263,7 +263,7 @@
 				cargarClasificacion(objeto);
 			  }
 			};
-			xhttp2.open("GET", 'http://api.football-data.org/v2/competitions/PD/standings', true);
+			xhttp2.open("GET", 'https://api.football-data.org/v2/competitions/PD/standings', true);
 			xhttp2.setRequestHeader("X-Auth-Token", "f62ba37a507c40598c31f642af27ddd2");
 			xhttp2.send();
 			
