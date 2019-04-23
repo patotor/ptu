@@ -1,1 +1,1 @@
-<?php header( 'Location: /futbol.html' ) ;  ?>
+<?php include_once("futbol.html"); ?>
